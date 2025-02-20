@@ -1,0 +1,4 @@
+This is a quick read for type of loop statements in c++
+
+- for (auto i : c) OR for (auto &i : c):
+
