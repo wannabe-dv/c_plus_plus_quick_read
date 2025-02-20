@@ -1,0 +1,56 @@
+This is a quick read of C++. Summarized some important and gotchas here.
+
+- DATA TYPES -
+1. signed data types -
+    int, short, long, long long
+2. unsigned data types -
+    unsigned int, unsigned short, unsigned long, unsigned long long
+3. char data types -
+    signed char, unsigned char, char
+    the signedness of char depends on the compiler. sometimes char == signed char and sometimes char == unsigned char.
+4. you can convert data types on the fly, following example
+    float pi = 3.1427
+    int i = pi;  // valid. i = 3
+5. list initializations -
+    int i = 0;
+    int i = {0};
+    int i{0};
+    int i(0);
+6. References - 
+    A refernce object points to another object. Once declared it cannot be changed and it will always point to the same object for the entire life of the program
+    All operations on the reference are actually operations being done on the object it is referring to
+    THE TYPE OF REFERENCE OBJECT AND THE OBJECT IT IS REFERRING TO SHOULD BE OF THE SAME TYPE.
+    int i = 10;
+    int &ref = i;
+    int &ref1;  // error. references always needs to be initialized
+    float &fref = i;  //error. lhs and rhs type should be same
+7. Pointers - 
+    int i = 42;
+    int *p = &i; OR p = &i;  // p is a pointer of type int that is pointing to variable i, it holds address of variable i
+    int *p1=p;    // p1 is a pointer of type int. it is assigned by another pointer, thus p1 and p are pointing to the same variable
+    cout << *p    // display i in this case.
+    void *ptr;
+    int *p2 = &i;
+    int **p3 = &p2; // pointer to pointer
+    int *&ref = p;  // ref is a reference to a pointer of type int
+    ref = i;        // pointer p now points to i. assigning to reference object is actually assigning to the object it is referring to. in this case pointer p. think of it as replacing ref with p
+    cout << *ref;   // displays values of i
+8. const
+    nonconst cannot refer to a const variable, const int ci = 1024; int &r2 = ci; // error. r2 is a nonconst reference referring to const variable ci
+    const int ci = 1024; const int &r1 = ci;  // this is okay
+    const variable can refer to a nonconst variable.
+    int i = 1024; const int &ref = i;  // this is okay
+    float pi = 3.14;
+    const int &ref = pi;  // this is okay. the compiler adds extra code to make this work. int temp = pi; const int &ref = temp;
+                          // thus in this case, the ref is binded to temp variable that the compiler created. changing pi is allowed and wont affect const int ref
+9. auto - 
+    when a variable is declared auto, the compiler figures out the data type based on the operand type
+    auto item = val1 + val2; 
+    here if val1 and val2 are int type then item becomes int, if they are float item becomes float, if they are a class handle then item becomes the same class handle
+    auto variable always need to be initialized
+10. struct -
+    struct log {
+      std::string module;
+      unsigned int error;
+      double precision;
+    };
